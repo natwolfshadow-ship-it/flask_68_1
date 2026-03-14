@@ -1,0 +1,48 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+<title>Flower Store</title>
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Welcome to the Flower Store</h1>
+
+{% if alert_message.status == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ alert_message.message }}
+</div>
+{% elif alert_message.status == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ alert_message.message }}
+</div>
+{% endif %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Place</th>
+            <th scope="col">Description</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for flower in flowers %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ flower.flower_name }}</td>
+            <td>{{ flower.flower_price }}</td>
+            <td>{{ flower.flower_place }}</td>
+            <td>{{ flower.flower_description }}</td>
+            <td><a href="{{ url_for('edit', flower_id=flower.id) }}" class="btn btn-info">Edit</a></td>
+            <td><a href="{{ url_for('delete', flower_id=flower.id) }}" class="btn btn-danger">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table> 
+
+{% endblock %}
